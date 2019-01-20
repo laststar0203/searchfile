@@ -44,7 +44,7 @@ public class SearchCtrl {
 
 		findType = (pos == 0) ? FindType.EXTENTION : (pos != -1) ? FindType.NAME : FindType.ONLYNAME;
 
-		this.searchFileName = fileNameFormat(name, findType);
+		this.searchFileName = fileNameFormat(name);
 
 		// getSize(startFile);
 		System.out.println(size);
@@ -78,7 +78,7 @@ public class SearchCtrl {
 				paths.add(i);
 			} else {
 
-				if (fileNameFormat(files[i].getName(), findType).equals(searchFileName)) {
+				if (fileNameFormat(files[i].getName()).equals(searchFileName)) {
 					findFiles.add(files[i]);
 					number++;
 				}
@@ -87,6 +87,7 @@ public class SearchCtrl {
 				// dataSize -= files[i].length();
 				// printProgressBar();
 			}
+			System.out.println(fileNameFormat(files[i].getName()) + "==? " + searchFileName);
 		}
 
 		printOutput(number + "개의 파일을 찾았습니다!");
@@ -95,8 +96,6 @@ public class SearchCtrl {
 			int index = paths.get(i);
 			searchFile(files[index]);
 		}
-
-		printOutput("파일" + titleFileCount + "개 중에서 " + findFiles.size() + "개 찾았습니다....");
 
 	}
 
@@ -112,28 +111,23 @@ public class SearchCtrl {
 		ResultCtrl action = new ResultCtrl(this);
 	}
 
-	private String fileNameFormat(String fileName , FindType type) {
+	private String fileNameFormat(String fileName) {
 
-		String newFilename;
+		String newFilename = null;
+		int pos = fileName.lastIndexOf(".");
 
-		switch (type) {
+		switch (findType) {
 		case EXTENTION:
-			newFilename = fileName.substring(1);
+			newFilename = fileName.substring(pos+1);
 			break;
 		case NAME:
 			newFilename = fileName.substring(0, pos);
 			break;
-		default:
+		case ONLYNAME:
+			newFilename = fileName;
 			break;
 		}
-		
-		if (fileName.contains(".")) {
-			int pos = fileName.lastIndexOf(".");
-			newFilename = (pos == 0) ? fileName.substring(1) : fileName.substring(0, pos);
-		} else
-			newFilename = fileName;
 
-		System.out.println(newFilename);
 		return newFilename;
 	}
 }

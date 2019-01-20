@@ -14,22 +14,11 @@ import javafx.scene.layout.VBox;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 
-public class SearchScene extends SceneBase {
+public class SearchPanel extends PanelBase {
 
 	File startFile = File.listRoots()[0];
 
-	public static void main(String[] args) {
-		launch();
-	}
-
-	@Override
-	public void startScene() {
-		launch();
-	}
-
-	@Override
-	public void start(Stage arg) throws Exception {
-		// TODO Auto-generated method stub
+	public SearchPanel(Stage arg) {
 		TextField inputFileName = new TextField();
 		Button searchBtn = new Button("°Ë»ö");
 		Button setParentBtn = new Button("...");
@@ -37,10 +26,8 @@ public class SearchScene extends SceneBase {
 		ProgressBar pb = new ProgressBar();
 		TextArea progressOutput = new TextArea();
 
-		BorderPane root = new BorderPane();
-		root.setPadding(new Insets(5));
+		setPadding(new Insets(5));
 
-		// Top
 		HBox top = new HBox();
 		top.setSpacing(5);
 
@@ -48,7 +35,7 @@ public class SearchScene extends SceneBase {
 
 		top.setHgrow(inputFileName, Priority.ALWAYS);
 		top.getChildren().addAll(inputFileName, searchBtn, setParentBtn);
-		root.setTop(top);
+		setTop(top);
 
 		// Center
 		BorderPane center = new BorderPane();
@@ -69,7 +56,7 @@ public class SearchScene extends SceneBase {
 		pb.setVisible(false);
 		progressOutput.setVisible(false);
 
-		root.setCenter(center);
+		setCenter(center);
 
 		// Action
 
@@ -95,10 +82,6 @@ public class SearchScene extends SceneBase {
 			}
 		});
 
-		Scene scene = new Scene(root, 800, 400);
-		arg.setTitle("SearchFile");
-		arg.setScene(scene);
-		arg.show();
 	}
 
 }
