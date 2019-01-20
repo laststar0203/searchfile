@@ -1,7 +1,7 @@
 import javafx.application.Application;
 import javafx.stage.Stage;
 
-public class ResultWindow extends Application{
+public class ResultScene extends Application{
 /*
 * SearchFile의 결과 화면 UI 담당
 */
